@@ -6,10 +6,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function App() {
   const stories = [
     { id: 1, username: 'photosbyen', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: true },
-    { id: 2, username: 'john_doe', imageUrl: 'https://images.unsplash.com/photo-1534538481094-25d10d762db7?w=500&auto=format&fit=crop&q=80', isNew: false },
-    { id: 3, username: 'snoopdogg', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: true },
-    { id: 4, username: 'jane_doe', imageUrl: 'https://images.unsplash.com/photo-1494790108377-bf7c7f6d85e2?w=500&auto=format&fit=crop&q=80', isNew: false },
-    // Add more users as needed
+    { id: 2, username: 'john_doe', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: true },
+    { id: 3, username: 'snoopdogg', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: false },
+    { id: 4, username: 'jane_doe', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: false },
   ];
 
   return (
@@ -21,7 +20,10 @@ export default function App() {
           <View key={story.id} style={styles.storyBubbleContainer}>
             <Image
               source={{ uri: story.imageUrl }}
-              style={[styles.storyImage, story.isNew && styles.newStory]}
+              style={[
+                styles.storyImage, 
+                story.isNew ? styles.newStory : styles.viewedStory // Apply newStory or viewedStory style
+              ]}
             />
             <Text style={styles.username}>{story.username}</Text>
           </View>
@@ -123,6 +125,12 @@ const styles = StyleSheet.create({
 
   newStory: {
     borderColor: '#ff8500', // Orange border for new stories
+    opacity: 1, // Fully visible for new stories
+  },
+
+  viewedStory: {
+    opacity: 0.5, // Dimming viewed stories
+    borderColor: '#ddd', // Lighter border for viewed stories
   },
 
   username: {
@@ -166,4 +174,3 @@ const styles = StyleSheet.create({
     margin: -5,
   },
 });
-
