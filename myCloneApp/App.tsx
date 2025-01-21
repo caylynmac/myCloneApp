@@ -1,30 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function App() {
+  const [firstStory, setFirstStory] = useState({
+    imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww',
+    isNew: true,
+  });
+
   const stories = [
-    { id: 1, username: 'photosbyen', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: true },
+    { id: 1, username: 'photosbyen', imageUrl: firstStory.imageUrl, isNew: firstStory.isNew },
     { id: 2, username: 'john_doe', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: true },
     { id: 3, username: 'snoopdogg', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: false },
     { id: 4, username: 'jane_doe', imageUrl: 'https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=600&auto=format&fit=crop&q=60&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww', isNew: false },
   ];
-
+  const handlePress = () => {
+    Alert.alert(
+      'View Story',
+      'Do you want to view this story?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'View',
+          onPress: () => {
+            setFirstStory({
+              imageUrl: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=600&auto=format&fit=crop&q=60',
+              isNew: false,
+            });
+          },
+        },
+      ]
+    );
+  };
   return (
     <View style={styles.container}>
-
       {/* Story Bubbles Section */}
       <View style={styles.storyContainer}>
         {stories.map(story => (
           <View key={story.id} style={styles.storyBubbleContainer}>
-            <Image
-              source={{ uri: story.imageUrl }}
-              style={[
-                styles.storyImage, 
-                story.isNew ? styles.newStory : styles.viewedStory // Apply newStory or viewedStory style
-              ]}
-            />
+            {story.id === 1 ? (
+              <TouchableOpacity onPress={handlePress}>
+                <Image
+                  source={{ uri: story.imageUrl }}
+                  style={[
+                    styles.storyImage,
+                    story.isNew ? styles.newStory : styles.viewedStory, // Apply newStory or viewedStory style
+                  ]}
+                />
+              </TouchableOpacity>
+            ) : (
+              <Image
+                source={{ uri: story.imageUrl }}
+                style={[
+                  styles.storyImage,
+                  story.isNew ? styles.newStory : styles.viewedStory, // Apply newStory or viewedStory style
+                ]}
+              />
+            )}
             <Text style={styles.username}>{story.username}</Text>
           </View>
         ))}
