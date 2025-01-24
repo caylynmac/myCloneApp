@@ -81,7 +81,7 @@ export default function App() {
       </View>
 
       {/* Post Section */}
-      <View style={styles.post}>
+      <ScrollView style={styles.post}>
         <View style={styles.rowView}>
           <Image
             style={styles.smallProfilePic}
@@ -140,7 +140,7 @@ export default function App() {
         </View>
         <Text style={styles.date}>November 12</Text>
 
-        </View>
+        </ScrollView>
       {/* Footer Section */}
       <View style={styles.iconBar}>
         <Ionicons name="home-sharp" size={24} color="black" />
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flex: 1,
     backgroundColor: '#fff',
-    rowGap: 5,
+    rowGap: 10,
   },
 
   storyContainer: {
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 40,
   },
 
   iconBar: {
@@ -211,12 +211,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderTopColor: 'black',
     borderTopWidth:0.5,
-    bottom: 50,
+    bottom: 0,
     left: 0,
     right: 0,
-    height: 40,
+    height: 60,
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    backgroundColor: 'white',
     zIndex: 1,
   },
 
@@ -266,6 +267,7 @@ const styles = StyleSheet.create({
 
   date: {
     paddingTop: 5, 
+    paddingBottom: 5,
     color: 'grey', 
     paddingLeft: 10,
   },
